@@ -22,18 +22,22 @@ def merge(left, right):
             
     return result
 
+def binary_search(array, second, last, target):
+    while second <= last:
+        mid = (second + last) // 2
+        if array[mid] == target:
+            return True
+        elif array[mid] < target:
+            second = mid + 1
+        else:
+            last = mid - 1
+    return False
+
 def find_three_numbers(array, target):
     array = merge_sort(array)
     n = len(array)
     for i in range(n - 2):
-        second = i + 1
-        last = n - 1
-        while second < last:
-            current_sum = array[i] + array[second] + array[last]
-            if current_sum == target:
+        for j in range(i + 1, n - 1):
+            current_sum = target - (array[i] + array[j])
+            if binary_search(array, j + 1, n - 1, current_sum):
                 return True
-            elif current_sum < target:
-                second += 1
-            else:
-                last -= 1
-    return False
