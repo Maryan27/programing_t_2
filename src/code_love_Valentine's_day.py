@@ -19,6 +19,9 @@ def merge(left, right):
         else:
             result.append(right[right_pos])
             right_pos += 1
+
+    result.extend(left[left_pos:])
+    result.extend(right[right_pos:])
             
     return result
 
@@ -41,3 +44,6 @@ def find_three_numbers(array, target):
             current_sum = target - (array[i] + array[j])
             if binary_search(array, j + 1, n - 1, current_sum):
                 return True
+    return False
+
+
