@@ -1,6 +1,6 @@
 import unittest
-from laba1level2 import generate_matrix
-from laba1level2 import calculate_seeds_to_plant
+from code_pumpkin import generate_matrix
+from code_pumpkin import calculate_seeds_to_plant
 
 
 class TestPumpkinRobot(unittest.TestCase):
@@ -23,7 +23,7 @@ class TestPumpkinRobot(unittest.TestCase):
         ]
         self.assertEqual(calculate_seeds_to_plant(cov, rov, pumpkin_counts), expected_seeds)
         
-    def test_pumkin_robot1(self):    
+    def test_pumpkin_robot1(self):    
         cov = 2
         rov = 4
         pumpkin_counts = [
@@ -31,6 +31,17 @@ class TestPumpkinRobot(unittest.TestCase):
             [5, 6, 7, 8]
         ]
         expected_seeds = [1, 2, 3, 4, 8, 7, 6, 5]
+        self.assertEqual(calculate_seeds_to_plant(cov, rov, pumpkin_counts), expected_seeds)
+
+    def test_pumpkin_robot2(self):
+        cov = 3
+        rov = 3
+        pumpkin_counts = [
+             [1, 2, 3],
+             [4, 5, 6],
+             [7, 8, 9],
+        ]
+        expected_seeds = [1, 2, 3, 6, 5, 4, 7, 8, 9]  
         self.assertEqual(calculate_seeds_to_plant(cov, rov, pumpkin_counts), expected_seeds)
 
     
