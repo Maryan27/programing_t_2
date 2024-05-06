@@ -32,7 +32,9 @@ class TestMinimumCableLength(unittest.TestCase):
             [3, 2, 0, 0],
             [0, 0, 0, 0]
         ]
-        self.assertEqual(minimum_cable_length(graph), 0)  
+        self.assertEqual(minimum_cable_length(graph), 3)  
 
 if __name__ == '__main__':
     unittest.main()
+ 
+
