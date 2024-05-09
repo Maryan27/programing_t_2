@@ -1,3 +1,9 @@
+import os
+import sys
+test_file_path = os.path.abspath(__file__)
+common_parent_path = os.path.abspath(os.path.join(os.path.dirname(test_file_path), os.pardir))
+src_path = os.path.join(common_parent_path, 'src')
+sys.path.append(src_path)
 import unittest
 from find_optimal_server_placement import find_optimal_server_placement, dijkstra
 
@@ -44,3 +50,4 @@ class TestFindOptimalServer(unittest.TestCase):
 
 if __name__ == '__main__':
     unittest.main()
+
