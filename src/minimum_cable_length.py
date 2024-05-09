@@ -1,53 +1,10 @@
 import csv
 import os
-
-class Node:
-    def __init__(self, value, priority):
-        self.value = value  
-        self.priority = priority  
-
-class PriorityQueue:
-    def __init__(self):
-        self.heap = []  
-        
-    def insert(self, value, priority):
-        node = Node(value, priority) 
-        self.heap.append(node)  
-        self._heapify_up(len(self.heap) - 1)  
-
-    def remove_min(self):  
-        if not self.heap: 
-            return None 
-        min_value = self.heap[0].value  
-        last_node = self.heap.pop()  
-        if self.heap: 
-            self.heap[0] = last_node 
-            self._heapify_down(0)  
-        return min_value  
-
-    def _heapify_up(self, i):
-        parent_i = (i - 1) // 2  
-        while i > 0 and self.heap[parent_i].priority > self.heap[i].priority:  
-            self.heap[parent_i], self.heap[i] = self.heap[i], self.heap[parent_i]
-            i = parent_i  
-            parent_i = (i - 1) // 2  
-
-    def _heapify_down(self, i):
-        left_child_i = 2 * i + 1  
-        right_child_i = 2 * i + 2  
-        smallest_i = i 
-        
-        if left_child_i < len(self.heap) and self.heap[left_child_i].priority < self.heap[smallest_i].priority:  
-            smallest_i = left_child_i
-        if right_child_i < len(self.heap) and self.heap[right_child_i].priority < self.heap[smallest_i].priority:  
-            smallest_i = right_child_i
-        if smallest_i != i:  
-            self.heap[smallest_i], self.heap[i] = self.heap[i], self.heap[smallest_i]
-            self._heapify_down(smallest_i)  
+from heap_based_priority_queue import PriorityQueue  
 
 def minimum_cable_length(graph):
     """
-    This function calculates the minimum cable length for islands using Prim's algorithm with a priority queue
+    This function finds the minimum cable length using the Prime algorithm with a priority queue
     """
     vertex = len(graph)
     selected = [0] * vertex 
@@ -76,16 +33,21 @@ def minimum_cable_length(graph):
 
 
 
-def calculate_minimum_cable_length(file_name): 
-    """ 
-    This function calculates the minimum cable length of islands based on a given adjacency matrix.
+def calculate_minimum_cable_length(file_name):
     """
-    with open(file_name, 'r') as file:
+    This function calculates the minimum cable length
+    """
+    file_path = os.path.join(project_root, 'resource', file_name)
+    with open(file_path, 'r') as file:
         reader = csv.reader(file)
         graph = []
         for row in reader:
             graph.append(list(map(int, row)))
 
-current_directory = os.path.dirname(os.path.abspath(__file__))
-file_name = os.path.join(current_directory, 'Laba_8', 'islands.csv')
+    result = minimum_cable_length(graph)
+    return result
+
+current_file_path = os.path.abspath(__file__)
+project_root = os.path.dirname(os.path.dirname(current_file_path))
+file_name = 'islands.csv'
 result = calculate_minimum_cable_length(file_name)
