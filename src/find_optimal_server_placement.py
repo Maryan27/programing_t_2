@@ -1,3 +1,6 @@
+import csv
+import os
+
 class Node:
     def __init__(self, value, priority):
         self.value = value  
@@ -75,17 +78,29 @@ def find_optimal_server_placement(graph, clients):
     return optimal_server, min_max_delay
 
 
-if __name__ == "__main__":
-    with open("C:/Users/Marian/OneDrive/Desktop/laba/gamsrv.in.txt", "r") as infile:
-        N, M = map(int, infile.readline().strip().split())
-        clients = set(map(int, infile.readline().strip().split()))
-        graph = {i: [] for i in range(1, N + 1)}
-        for _ in range(M):
-            startnode, endnode, latency = map(int, infile.readline().strip().split())
-            graph[startnode].append((endnode, latency))
-            graph[endnode].append((startnode, latency))
-    
-    optimal_server, min_max_delay = find_optimal_server_placement(graph, clients)
-    
-    with open("C:/Users/Marian/OneDrive/Desktop/laba/gamsrv.out.txt", "w") as outfile:
-        outfile.write(str(min_max_delay) + "\n")
+
+def graph_from_file(file_name):
+    graph = {}
+    with open(file_name, 'r') as file:
+        for line in file:
+            start_node, end_node, latency = map(int, line.strip().split())
+            if start_node not in graph:
+                graph[start_node] = []
+            if end_node not in graph:
+                graph[end_node] = []
+            graph[start_node].append((end_node, latency))
+            graph[end_node].append((start_node, latency))
+    return graph
+
+def write_to_file(file_path, data):
+    with open(file_path, 'w') as file:
+        file.write(str(data) + "\n")
+
+current_file_path = os.path.abspath(__file__)
+project_root = os.path.dirname(os.path.dirname(current_file_path))
+file_name = os.path.join(project_root, 'resource', 'gamsrv.in.txt')
+file_path = os.path.join(project_root, 'resource', 'gamsrv.out.txt')
+
+graph = graph_from_file (file_name)
+clients = set()  
+optimal_server, min_max_delay = find_optimal_server_placement(graph, clients)
