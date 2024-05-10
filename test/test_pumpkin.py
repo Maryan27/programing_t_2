@@ -1,6 +1,6 @@
 import unittest
-from code_pumpkin import generate_matrix
-from code_pumpkin import calculate_seeds_to_plant
+from src.code_pumpkin import generate_matrix
+from src.code_pumpkin import calculate_seeds_to_plant
 
 
 class TestPumpkinRobot(unittest.TestCase):
