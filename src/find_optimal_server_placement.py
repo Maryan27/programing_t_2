@@ -81,11 +81,9 @@ def find_optimal_server_placement(graph, clients):
 
 def graph_from_file(file_name):
     graph = {}
-    with open(file_name, 'r') as file:
+    with open(file_name, 'r', encoding='utf-8') as file:
         for line in file:
-            print("Processing line:", line)  
             data = line.strip().split()
-            print("Split data:", data)  
             if len(data) != 3:
                 print(f"Skipping line {line.strip()} as it doesn't have three values.")
                 continue
