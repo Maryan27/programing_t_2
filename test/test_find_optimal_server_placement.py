@@ -7,47 +7,46 @@ sys.path.append(src_path)
 import unittest
 from find_optimal_server_placement import find_optimal_server_placement, dijkstra
 
-class TestFindOptimalServer(unittest.TestCase):
-    def test_find_optimal_server_placement(self):
+
+class TestServerPlacement(unittest.TestCase):
+    def test_case1(self):
         graph = {
-            1: [(3, 10)],
-            2: [(3, 40), (4, 100)],
-            3: [(2, 40), (4, 80)],
+            1: [(2, 6), (3, 10)],
+            2: [(1, 6), (3, 40), (4, 100)],
+            3: [(1, 10), (2, 40), (4, 80)],
             4: [(2, 100), (3, 80), (5, 50)],
-            5: [(4, 50)]
+            5: [(4, 50), (6, 20)],
+            6: [(5, 20)]
         }
-        clients = {1, 2}
-        optimal_server, min_max_delay = find_optimal_server_placement(graph, clients)
-        self.assertEqual(optimal_server, 3)
-        self.assertEqual(min_max_delay, 40)
+        clients = [1, 2, 3]
+        result = find_optimal_server_placement(graph, clients)
+        self.assertEqual(result[1], 96)
 
-    def test_all_clients_connected(self):
+    def test_case2(self):
         graph = {
-            1: [(3, 10)],
-            2: [(3, 40), (4, 100)],
-            3: [(2, 40), (4, 80)],
-            4: [(2, 100), (3, 80), (5, 50)],
-            5: [(4, 50)]
+            1: [(2, 20), (4, 20)],
+            2: [(1, 20), (3, 20), (4, 6), (5, 10)],
+            3: [(2, 20), (6, 20)],
+            4: [(1, 20), (2, 6), (5, 10), (7, 20)],
+            5: [(2, 10), (4, 10), (6, 10), (8, 10)],
+            6: [(3, 20), (5, 10), (9, 20)],
+            7: [(4, 20), (8, 20)],
+            8: [(5, 10), (7, 20), (9, 20)],
+            9: [(6, 20), (8, 20)]
         }
-        clients = {1, 2, 3, 4, 5}  
-        optimal_server, min_max_delay = find_optimal_server_placement(graph, clients)
-        self.assertIsNone(optimal_server)  
-        self.assertEqual(min_max_delay, float('inf')) 
+        clients = [2, 4, 6]
+        result = find_optimal_server_placement(graph, clients)
+        self.assertEqual(result[1], 10)
 
-    def test_duplicate(self):
+    def test_case3(self):
         graph = {
-            1: [(3, 10)],
-            2: [(3, 40), (4, 100)],
-            3: [(2, 40), (4, 80), (4, 50)],  
-            4: [(2, 100), (3, 80), (5, 50)],
-            5: [(4, 50)]
+            1: [(2, 50)],
+            2: [(1, 50), (3, 1000000000)],
+            3: [(2, 1000000000)]
         }
-        clients = {1, 2}
-        optimal_server, min_max_delay = find_optimal_server_placement(graph, clients)
-        self.assertEqual(optimal_server, 3)  
-        self.assertEqual(min_max_delay, 40)  
-    
+        clients = [1, 3]
+        result = find_optimal_server_placement(graph, clients)
+        self.assertEqual(result[1], 1000000000)
 
-if __name__ == '__main__':
-    unittest.main()
-
+if __name__ == "__main__":
+    unittest.main()  
