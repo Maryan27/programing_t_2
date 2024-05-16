@@ -5,8 +5,8 @@ common_parent_path = os.path.abspath(os.path.join(os.path.dirname(test_file_path
 src_path = os.path.join(common_parent_path, 'src')
 sys.path.append(src_path)
 import unittest
-from sum_left_node import branchSums
-from sum_left_node import BinaryTree
+from code_left_node_sum import branchSums
+from code_left_node_sum import BinaryTree
 
 
 class TestBranchSums(unittest.TestCase):
