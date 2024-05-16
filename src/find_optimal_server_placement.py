@@ -83,7 +83,13 @@ def graph_from_file(file_name):
     graph = {}
     with open(file_name, 'r') as file:
         for line in file:
-            start_node, end_node, latency = map(int, line.strip().split())
+            print("Processing line:", line)  
+            data = line.strip().split()
+            print("Split data:", data)  
+            if len(data) != 3:
+                print(f"Skipping line {line.strip()} as it doesn't have three values.")
+                continue
+            start_node, end_node, latency = map(int, data)
             if start_node not in graph:
                 graph[start_node] = []
             if end_node not in graph:
@@ -92,14 +98,15 @@ def graph_from_file(file_name):
             graph[end_node].append((start_node, latency))
     return graph
 
+
 def write_to_file(file_path, data):
     with open(file_path, 'w') as file:
         file.write(str(data) + "\n")
 
 current_file_path = os.path.abspath(__file__)
 project_root = os.path.dirname(os.path.dirname(current_file_path))
-file_name = os.path.join(project_root, 'resource', 'gamsrv.in.txt')
-file_path = os.path.join(project_root, 'resource', 'gamsrv.out.txt')
+file_name = os.path.join(project_root, 'resourse', 'gamsrv.in.txt').encode('utf-8')
+file_path = os.path.join(project_root, 'resourse', 'gamsrv.out.txt')
 
 graph = graph_from_file (file_name)
 clients = set()  
