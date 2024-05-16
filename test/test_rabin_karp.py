@@ -5,7 +5,7 @@ common_parent_path = os.path.abspath(os.path.join(os.path.dirname(test_file_path
 src_path = os.path.join(common_parent_path, 'src')
 sys.path.append(src_path)
 import unittest
-from rabin_karp import rabin_karp
+from rabin_karp_code import rabin_karp
 
 class TestRabinKarp(unittest.TestCase):
     def test_result(self):
