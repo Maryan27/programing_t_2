@@ -5,7 +5,7 @@ common_parent_path = os.path.abspath(os.path.join(os.path.dirname(test_file_path
 src_path = os.path.join(common_parent_path, 'src')
 sys.path.append(src_path)
 import unittest
-from shortest_path_in_the_maze import shortest_path_in_maze
+from shortest_path_in_maze import shortest_path_in_maze
 
 class TestShortestPathInMaze(unittest.TestCase):
     def test_shortest_path_found(self):
