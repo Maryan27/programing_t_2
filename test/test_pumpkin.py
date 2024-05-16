@@ -5,8 +5,8 @@ common_parent_path = os.path.abspath(os.path.join(os.path.dirname(test_file_path
 src_path = os.path.join(common_parent_path, 'src')
 sys.path.append(src_path)
 import unittest
-from src.code_pumpkin import generate_matrix
-from src.code_pumpkin import calculate_seeds_to_plant
+from code_pumpkin import generate_matrix
+from code_pumpkin import calculate_seeds_to_plant
 
 
 class TestPumpkinRobot(unittest.TestCase):
